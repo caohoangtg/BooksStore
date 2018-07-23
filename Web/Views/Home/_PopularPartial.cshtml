@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Web.ViewModels.PostViewModel>
+
+<div class="card-body">
+    <div class="recent-meaasge">
+        @foreach (var item in Model)
+        {
+            <div class="media">
+                <div class="media-left">
+                    <a href="#"><img alt="..." src="~/Content/Images/avatar/@item.User.Profile.ImageData" class="media-object"></a>
+                </div>
+                <div class="media-body">
+                    <a href="@Url.Action("SinglePost", "Home", new { id = item.PostId})">
+                        <h4 class="media-heading">@item.User.Name</h4>
+                        <div class="meaasge-date">View: @item.View</div>
+                        <p class="f-s-12">@item.Title </p>
+                    </a>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>

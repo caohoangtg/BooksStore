@@ -1,0 +1,347 @@
+﻿@model Models.Posts
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <style type="text/css">
+        .parallax {
+            /* The image used */
+            background-image: url(../Images/9317.jpg);
+            /* Set a specific height */
+            min-height: 40vh;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .blog_time li {
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+            .blog_time li a {
+                border: 1px solid #d7d7d7;
+                line-height: 25px;
+                text-align: center;
+                padding: 0px 8px;
+                border-radius: 12.5px;
+                font-size: 10px;
+                font-family: "Heebo", sans-serif;
+                font-weight: normal;
+                display: inline-block;
+                color: #8e8e8e;
+            }
+
+                .blog_time li a i {
+                    padding-right: 6px;
+                }
+
+            .blog_time li:last-child {
+                margin-right: 0px;
+                margin-left: 25px;
+            }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="fix-header fix-sidebar">
+    <!-- Preloader - style you can find in spinners.css -->
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+        </svg>
+    </div>
+    <!-- Main wrapper  -->
+    <div id="main-wrapper">
+        <!-- header header  -->
+        <div class="header">
+            <nav class="navbar top-navbar navbar-expand-md navbar-light">
+                <!-- Logo -->
+                <div class="navbar-header">
+                    @*<a class="navbar-brand" href="index.html">
+                            <!-- Logo icon -->
+                            <b><img src="#" alt="homepage" class="dark-logo" /></b>
+                            <!--End Logo icon -->
+                            <!-- Logo text -->
+                            <span><img src="#" alt="homepage" class="dark-logo" /></span>
+                        </a>*@
+                </div>
+                <!-- End Logo -->
+                <div class="navbar-collapse">
+                    <!-- toggle and nav items -->
+                    <ul class="navbar-nav mr-auto mt-md-0">
+                        <!-- Search -->
+                        <li class="nav-item hidden-sm-down search-box">
+                            <a class="nav-link hidden-sm-down text-muted  " href="javascript:void(0)"><i class="fa fa-search"></i></a>
+                            <form class="app-search">
+                                <input type="text" class="form-control" placeholder="Search here"> <a class="srh-btn"><i class="fa fa-window-close"></i></a>
+                            </form>
+                        </li>
+                        <li class="nav-item search-box">
+                            <a class="nav-link nav-toggler hidden-md-up text-muted  " href="javascript:void(0)"><i class="fa fa-search"></i></a>
+                            <form class="app-search">
+                                <input type="text" class="form-control" placeholder="Search here">
+                                <a class="srh-btn"><i class="fa fa-window-close"></i></a>
+
+                                <div class="form-control">
+                                    <span>Catelogy:</span>
+                                    @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "btn" })
+
+                                    <span>Topic:</span>
+                                    @Html.DropDownList("TopicId", null, htmlAttributes: new { @class = "btn" })
+                                </div>
+
+                                @*<div class="form-control">
+                                        <span>Catelogy: </span>
+                                        <select class="btn btn-info" >
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                        </select>
+                                        <span>Topic: </span>
+                                        <select class="btn">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                        </select>
+                                    </div>*@
+
+
+                            </form>
+                        </li>
+                    </ul>
+                    <!-- User profile -->
+                    <div id="login">
+                        @Html.Partial("_LoginPartial")
+                    </div>
+                </div>
+
+            </nav>
+        </div>
+        <div class="pagewrapper" style="background-color: #f1f1f1">
+            <!-- Bread crumb -->
+            <div class="parallax">
+            </div>
+            <!-- End Bread crumb -->
+            <!-- Container fluid  -->
+            <div class="container-fluid">
+                <!-- Start Page Content -->
+                <div class="row">
+                    <div class="col-lg-9 SinglePost">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="card bg-primary p-20">
+                                    <div class="media widget-ten">
+                                        <div class="media-left meida media-middle">
+                                            <span><i class="ti-bag f-s-40"></i></span>
+                                        </div>
+                                        <div class="media-body media-text-right">
+                                            <h2 class="color-white">278</h2>
+                                            <p class="m-b-0">New Posts</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card bg-pink p-20">
+                                    <div class="media widget-ten">
+                                        <div class="media-left meida media-middle">
+                                            <span><i class="ti-comment f-s-40"></i></span>
+                                        </div>
+                                        <div class="media-body media-text-right">
+                                            <h2 class="color-white">278</h2>
+                                            <p class="m-b-0">New Comment</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card bg-success p-20">
+                                    <div class="media widget-ten">
+                                        <div class="media-left meida media-middle">
+                                            <span><i class="ti-vector f-s-40"></i></span>
+                                        </div>
+                                        <div class="media-body media-text-right">
+                                            <h2 class="color-white">$27647</h2>
+                                            <p class="m-b-0">Bounce Rate</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card bg-danger p-20">
+                                    <div class="media widget-ten">
+                                        <div class="media-left meida media-middle">
+                                            <span><i class="ti-location-pin f-s-40"></i></span>
+                                        </div>
+                                        <div class="media-body media-text-right">
+                                            <h2 class="color-white">278</h2>
+                                            <p class="m-b-0">Total Visitor</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="main">
+                            @RenderBody()
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="card-title">
+                                <h3>Categories </h3>
+                                <hr>
+                            </div>
+                            <ul>
+                                <li><a href="#"><span class="text">Mobile Apps</span><span>5</span></a></li>
+                                <li><a href="#"><span class="text">Repair</span><span>7</span></a></li>
+                                <li><a href="#"><span class="text">SASS</span><span>2</span></a></li>
+                                <li><a href="#"><span class="text">PC</span><span>3</span></a></li>
+                                <li><a href="#"><span class="text">Adwords</span><span>12</span></a></li>
+                                <li><a href="#"><span class="text">Social media</span><span>20</span></a></li>
+                                <li><a href="#"><span class="text">Dashboard</span><span>6</span></a></li>
+                                <li><a href="#"><span class="text">Creative</span><span>8</span></a></li>
+                                <li><a href="#"><span class="text">Infographic</span><span>9</span></a></li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">
+                                <h3>Categories </h3>
+                                <hr>
+                            </div>
+                            <ul>
+                                <li><a href="#"><span class="text">Mobile Apps</span><span>5</span></a></li>
+                                <li><a href="#"><span class="text">Repair</span><span>7</span></a></li>
+                                <li><a href="#"><span class="text">SASS</span><span>2</span></a></li>
+                                <li><a href="#"><span class="text">PC</span><span>3</span></a></li>
+                                <li><a href="#"><span class="text">Adwords</span><span>12</span></a></li>
+                                <li><a href="#"><span class="text">Social media</span><span>20</span></a></li>
+                                <li><a href="#"><span class="text">Dashboard</span><span>6</span></a></li>
+                                <li><a href="#"><span class="text">Creative</span><span>8</span></a></li>
+                                <li><a href="#"><span class="text">Infographic</span><span>9</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Container fluid  -->
+            <!-- footer -->
+            <footer class="footer">
+                © 2018 All rights reserved. Template designed by <a href="https://colorlib.com">Colorlib</a>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>
+            <!-- End footer -->
+        </div>
+        <div class="modal in" id="login-modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div id='myModalContent'></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script>
+
+        var TeamDetailPostBackURL = '/Account/_PartialLogin';
+        $(document).ready(function () {
+            $(".anchorLogin").click(function () {
+                //debugger;
+                var $buttonClicked = $(this);
+                var id = $buttonClicked.attr('data-id');
+                var options = { "backdrop": "static", keyboard: true };
+                $.ajax({
+                    type: "GET",
+                    url: TeamDetailPostBackURL,
+                    contentType: "application/json; charset=utf-8",
+                    data: { "Id": id },
+                    datatype: "json",
+                    success: function (data) {
+                        //debugger;
+                        $('#myModalContent').html(data);
+                        $('#login-modal').modal(options);
+                        $('#login-modal').modal('show');
+
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+            });
+            $("#myModalContent").on('click', "#closbtn", function () {
+                $('#login-modal').modal('hide');
+            });
+            //$("#closbtn").click(function () {
+            //    console.log("da kcih");
+            //    $('#myModal').modal('hide');
+            //});
+            $(document).on("click", ".submit", function () {
+                var data = new FormData;
+                data.append("Email", $(".Email").val());
+                data.append("Password", $(".Password").val());
+
+                $.ajax({
+                    type: "POST",
+                    url: TeamDetailPostBackURL,
+                    //contentType: "application/json; charset=utf-8",
+                    data: data,
+                    contentType: false,
+                    processData: false,
+                    //datatype: "json",
+                    success: function (data) {
+                        //debugger;
+                        $('#login-modal').modal('hide');
+                        $('#login').html(data);
+
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+                return false;
+            });
+            $(".SinglePost").on("click", ".post", function () {
+                var href= $(this).attr("href");
+                $.ajax({
+                    type: "POST",
+                    url: href,
+                    success: function (data) {
+                        $('#main').html(data);
+
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+                return false;
+            });
+            $(document).on("click", "#newTopic", function () {
+                var href = $(this).attr("href");
+                $.ajax({
+                    type: "GET",
+                    url: href,
+                    success: function (data) {
+                        $('#main').html(data);
+
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+                return false;
+            });
+        });
+
+    </script>
+</body>
+</html>

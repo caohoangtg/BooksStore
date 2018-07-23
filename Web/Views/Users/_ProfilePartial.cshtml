@@ -1,0 +1,36 @@
+﻿<div class="tab-pane active" id="home" role="tabpanel" style="background-color: #fff">
+    <div class="card-body">
+        <div class="profiletimeline">
+            @foreach (var item in ViewBag.List)
+            {
+            <div class="sl-item postsingle">
+                <div class="sl-left" > <img src="~/Content/Images/avatar/@item.User.Profile.ImageData" alt="user" class="img-circle" style="border: 1px solid #808080" /> </div>
+                <div class="sl-right">
+                    <div>
+                        <input type="hidden" name="@item.PostId" id="@item.PostId" />
+                        <a href="@Url.Action("SinglePost", "Home", new { id = item.PostId })" class="link"><strong>@item.Title</strong></a> <span class="sl-date pull-right">@item.Time</span>
+                        <p class="m-t-10">
+                            <span><a href="@Url.Action("SingleCategory", "Home", new { id = item.CategoryId })" style="color: blue;">[ @item.Category.Name ]</a></span>
+                            <span><a href="@Url.Action("SingleTopic", "Home", new { id = item.CategoryId })" style="color: chocolate;">[ @item.Topic.Name ]</a></span>
+                        </p>
+
+                    </div>
+                    <div class="like-comm m-t-20">
+                        <a href="javascript:void(0)" class="link m-r-10">@Enumerable.Count(item.Comments) Comment</a>
+                        <a href="javascript:void(0)" class="link m-r-10"><i class="fa fa-heart text-danger"></i>@Enumerable.Count(item.Marks) Like</a>
+                        <a href="javascript:void(0)" class="link m-r-10"><i class="fa fa-comments"></i>@item.View View</a>
+                        <div class="blog_time pull-right">
+                            <ul class="blog_time ">
+                                <li><a href="@Url.Action("EditPost", "Home", new { id = item.PostId })" id="EditPost"><i class="fa fa-eye"></i>Sửa</a></li>
+                                <li><a href="javascript:void(0);" data-id="@item.PostId" id="DelPost"><i class="fa fa-comments"></i>Xóa</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            }
+            @ViewBag.Message
+        </div>
+    </div>
+</div>

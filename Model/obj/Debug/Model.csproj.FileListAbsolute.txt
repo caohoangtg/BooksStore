@@ -1,0 +1,6 @@
+C:\Users\CAO\source\repos\BooksStore\Model\bin\Debug\Model.dll
+C:\Users\CAO\source\repos\BooksStore\Model\bin\Debug\Model.pdb
+C:\Users\CAO\source\repos\BooksStore\Model\obj\Debug\Model.csprojResolveAssemblyReference.cache
+C:\Users\CAO\source\repos\BooksStore\Model\obj\Debug\Model.csproj.CoreCompileInputs.cache
+C:\Users\CAO\source\repos\BooksStore\Model\obj\Debug\Model.dll
+C:\Users\CAO\source\repos\BooksStore\Model\obj\Debug\Model.pdb

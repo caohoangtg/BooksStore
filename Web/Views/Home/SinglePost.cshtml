@@ -1,0 +1,174 @@
+﻿@model Web.ViewModels.PostViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="recent-comment">
+            @Html.HiddenFor(model => model.PostId)
+            @if (Session["AdminId"] != null)
+            {
+                <h2 class="pull-right" style="margin-top: -30px;">...</h2>
+            }
+            <h2>@Html.DisplayFor(model => model.Title)</h2>
+            <ul class="blog_time">
+                <li><a href="javascript:void(0);"><i class="fa fa-user"></i>View :@Html.DisplayFor(model => model.View)</a></li>
+                <li><a href="javascript:void(0);"><i class="fa fa-clock-o"></i>Post :@Html.DisplayFor(model => model.Time)</a></li>
+                <li>
+                    @if (Session["AdminId"] != null || Session["UserId"] != null)
+                    {
+                        <a href="javascript:void(0);" class="mark" id="Like"><i class="fa fa-heart"></i>Like :<span id="changemark">@Enumerable.Count(Model.Marks)</span></a>
+                    }
+                    else
+                    {
+                        <a href="javascript:void(0);" class="mark" id="NoLike"><i class="fa fa-heart"></i>Like :<span id="changemark">@Enumerable.Count(Model.Marks)</span></a>
+                    }
+                </li>
+            </ul>
+            <div class="media">
+                <div class="media-left">
+                    <a href="#"><img alt="..." src="~/Content/Images/avatar/@Model.User.Profile.ImageData" class="media-object"></a>
+                </div>
+                <div class="media-body">
+                    <div class="col-lg-9 ">
+                        <h4 class="media-heading">@Html.DisplayFor(model => model.User.Name)</h4>
+                    </div>
+
+                </div>
+                <div class="media-right">
+                    <h4>Chuyên mục</h4>
+                    <a href="#" style="color: blue;">@Html.DisplayFor(model => model.Category.Name)</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="myRaw" style="background-color: #fff; border-radius: 5px; padding: 10px 10px;">
+        @Html.Raw(Model.Description)
+    </div>
+    @if (Model.File != "")
+    {
+        <br />
+        <span>Tệp đính kèm: @Html.ActionLink(Model.File, "DownloadFile", new { ImageName = Model.File }, new { @style = "color: blue;" })</span>
+    }
+
+    <hr />
+</div>
+
+@foreach (var item in Model.Comments)
+{
+    <div class="card">
+        <div class="recent-comment">
+            @Html.HiddenFor(modelItem => item.CommentId)
+            @if (Session["AdminId"] != null)
+            {
+                if ((int)Session["AdminId"] == item.UserId)
+                {
+                    <a class="pull-right" style="margin-top: -30px;" data-toggle="modal" data-target="#CommentEdit">...</a>
+                }
+            }
+            else if (Session["UserId"] != null)
+            {
+                if ((int)Session["UserId"] == item.UserId)
+                {
+                    <h2 class="pull-right" style="margin-top: -30px;">...</h2>
+                }
+            }
+            <div class="media">
+                <div class="media-left">
+                    <a href="#" id="CommentDel"><img alt="..." src="~/Content/Images/avatar/@item.User.Profile.ImageData" class="media-object"></a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">@Html.DisplayFor(modelItem => item.User.Name)</h4>
+                    @*<p>@Html.DisplayFor(modelItem => item.Comment)</p>*@
+                    @Html.Raw(item.Comment)
+                    <ul class="blog_time comment-date">
+                        <li><a href="javascript:void(0);"><i class="fa fa-clock-o"></i>Post :@Html.DisplayFor(modelItem => item.TimeComment)</a></li>
+                        <li><a href="javascript:void(0);" class="replys"><i class="fa fa-reply "></i>Reply</a></li>
+                    </ul>
+                    <div class="comment-reply">
+                        @foreach (var reply in item.Replys)
+                        {
+                            <br />
+                            <div class="media reply">
+                                <div class="media-left">
+                                    <a href="#"><img alt="..." src="~/Content/Images/avatar/@reply.User.Profile.ImageData" class="media-object"></a>
+                                </div>
+                                <div class="media-body">
+                                    <h4 class="media-heading" style="color: white;">@Html.DisplayFor(modelItem => reply.User.Name)</h4>
+                                    <p>@Html.DisplayFor(modelItem => reply.RepComment)</p>
+                                    <ul class="blog_time comment-date">
+                                        <li><a href="javascript:void(0);"><i class="fa fa-clock-o"></i>Post :@Html.DisplayFor(modelItem => reply.TimeRep)</a></li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="reply_form" style="display: none">
+                        <br />
+                        @*<div class="s_r_title">
+                                <h3>Replys</h3>
+                            </div>*@
+                        <div class="form-group col-md-12">
+                            <textarea class="form-control" name="RepComment" id="RepComment" rows="3" placeholder="Trả lời bình luận" style="border: 1px solid #0471A5; border-radius: 5px;"></textarea>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <a href="@Url.Action("_ReplyPartial", "Home")" value="submit" class="btn btn-dropbox sub-reply">Reply</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div class="card" id="comments">
+    <div class="comment_form">
+        <div class="s_r_title">
+            <h3><strong>Comments</strong></h3>
+            <hr />
+        </div>
+        <div class="form-group col-md-12">
+            <textarea class="form-control" name="Comment" id="Comment" style="border: 1px solid #0471A5; border-radius: 5px;"></textarea>
+        </div>
+        <div class="form-group col-md-12">
+            <a href="@Url.Action("_CommentPartial", "Home")" value="submit" class="btn btn-dropbox sub-comment">Comment</a>
+        </div>
+    </div>
+</div>
+
+@*<div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+        <li><a data-toggle="modal" data-target="#CommentEdit">Chỉnh sửa</a></li>
+        <li><a href="#">Xóa</a></li>
+    </ul>
+</div>
+
+<button type="button" class="btn btn-default" data-toggle="modal" data-target="#CommentEdit">
+    ...
+</button>*@
+<div class="modal in" id="CommentEdit" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa bình luận</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <textarea class="form-control" name="Comment" id="Comment" style="border: 1px solid #0471A5; border-radius: 5px;"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-dropbox">Chỉnh sửa</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+﻿<div class="tab-pane active" id="home" role="tabpanel" style="background-color: #fff">
+    <div class="card-body">
+        <div class="profiletimeline">
+            @foreach (var item in ViewBag.List)
+            {
+                <div class="sl-item">
+                    <div class="sl-left"> <img src="~/Content/Images/avatar/@item.Post.User.Profile.ImageData" alt="user" class="img-circle" style="border: 1px solid #808080" /> </div>
+                    <div class="sl-right">
+                        <div>
+                            <input type="hidden" name="@item.PostId" id="@item.PostId" />
+                            <a href="@Url.Action("SinglePost", "Home", new { id = item.PostId })" class="link"><strong>@item.Post.Title</strong></a> <span class="sl-date pull-right">@item.Post.Time</span>
+                            <p class="m-t-10">
+                                <span ><a href="@Url.Action("SingleCategory", "Home", new { id = item.Post.CategoryId })" style="color: blue;" >[ @item.Post.Category.Name ]</a></span>
+                                <span ><a href="@Url.Action("SingleTopic", "Home", new { id = item.Post.CategoryId })" style="color: chocolate;">[ @item.Post.Topic.Name ]</a></span>
+                            </p>
+                        </div>
+                        <div class="like-comm m-t-20">
+                            <a href="javascript:void(0)" class="link m-r-10"><i class="fa fa-comments"></i> @Enumerable.Count(item.Post.Comments) Comment</a>
+                            <a href="javascript:void(0)" class="link m-r-10"><i class="fa fa-heart text-danger"></i> @Enumerable.Count(item.Post.Marks) Like</a>
+                            <a href="javascript:void(0)" class="link m-r-10"><i class="fa fa-eye"></i> @item.Post.View View</a>
+                            
+                        </div>
+                    </div>
+                </div>
+                <hr>
+            }
+            @ViewBag.Message
+        </div>
+    </div>
+</div>

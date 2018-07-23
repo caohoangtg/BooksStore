@@ -1,0 +1,43 @@
+﻿@model Web.ViewModels.CommentViewModel
+
+@if (Model != null)
+{
+    <div class="card">
+        <div class="recent-comment">
+            <input type="hidden" value="@Html.DisplayFor(model => model.CommentId)" id="item_CommentId" />
+            <div class="media">
+                <div class="media-left">
+                    <a href="#"><img alt="..." src="~/Content/Images/avatar/@Model.User.Profile.ImageData" class="media-object"></a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">@*@ViewBag.NameUser*@ @Html.DisplayFor(model => model.User.Name)</h4>
+                    @*<p>@Html.DisplayFor(model => model.Comment)</p>*@
+                    @Html.Raw(Model.Comment)
+                    <ul class="blog_time comment-date">
+                        <li><a href="javascript:void(0);"><i class="fa fa-clock-o"></i>Post :@Html.DisplayFor(model => model.TimeComment)</a></li>
+                        <li><a href="javascript:void(0);" class="replys"><i class="fa fa-reply "></i>Reply</a></li>
+                    </ul>
+                    <div class="comment-reply">
+
+                    </div>
+                    <div class="reply_form" style="display: none">
+                        <br />
+                        @*<div class="s_r_title">
+                            <h3>Replys</h3>
+                        </div>*@
+                        <div class="form-group col-md-12">
+                            <textarea type="text" class="form-control" name="RepComment" id="RepComment" rows="3" placeholder="Trả lời bình luận" style="border: 1px solid #0471A5; border-radius: 5px;"></textarea>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <a href="@Url.Action("_ReplyPartial", "Home")" value="submit" class="btn btn-dropbox sub-reply">Reply</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="nocomment" style="color: red;">@ViewBag.Message</div>
+}

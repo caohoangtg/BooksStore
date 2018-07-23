@@ -1,0 +1,8 @@
+﻿@*@model IEnumerable<Models.Topics>*@
+@model IEnumerable<Web.ViewModels.TopicViewModel>
+
+@foreach (var item in Model)
+{
+
+    <li><a href="@Url.Action("SingleTopic", "Home", new { id = item.TopicId })"><span class="text">@item.Name</span><span class="label label-info float-right ml-2">@item.Posts.ToList().Count()</span></a></li>
+}

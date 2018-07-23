@@ -1,0 +1,14 @@
+C:\Users\CAO\source\repos\BooksStore\Service\bin\Debug\Service.dll
+C:\Users\CAO\source\repos\BooksStore\Service\bin\Debug\Service.pdb
+C:\Users\CAO\source\repos\BooksStore\Service\bin\Debug\Data.dll
+C:\Users\CAO\source\repos\BooksStore\Service\bin\Debug\Model.dll
+C:\Users\CAO\source\repos\BooksStore\Service\bin\Debug\EntityFramework.dll
+C:\Users\CAO\source\repos\BooksStore\Service\bin\Debug\Data.pdb
+C:\Users\CAO\source\repos\BooksStore\Service\bin\Debug\Data.dll.config
+C:\Users\CAO\source\repos\BooksStore\Service\bin\Debug\Model.pdb
+C:\Users\CAO\source\repos\BooksStore\Service\bin\Debug\EntityFramework.xml
+C:\Users\CAO\source\repos\BooksStore\Service\obj\Debug\Service.csprojResolveAssemblyReference.cache
+C:\Users\CAO\source\repos\BooksStore\Service\obj\Debug\Service.csproj.CoreCompileInputs.cache
+C:\Users\CAO\source\repos\BooksStore\Service\obj\Debug\Service.csproj.CopyComplete
+C:\Users\CAO\source\repos\BooksStore\Service\obj\Debug\Service.dll
+C:\Users\CAO\source\repos\BooksStore\Service\obj\Debug\Service.pdb

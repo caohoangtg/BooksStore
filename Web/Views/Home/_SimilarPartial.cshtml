@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Web.ViewModels.PostViewModel>
+
+<div class="card">
+    <div class="card-title">
+        <h4>Danh sách bài viết </h4>
+        <hr>
+    </div>
+    <div class="recent-comment">
+        @foreach (var item in Model)
+        {
+            <div class="media">
+                <div class="media-left">
+                    <a href="#"><img alt="..." src="~/Content/Images/avatar/@item.User.Profile.ImageData" class="media-object"></a>
+
+                </div>
+                <div class="media-body">
+                    <div class="col-lg-9 ">
+                        <h3>
+                            <span>[ @Html.ActionLink(@item.Category.Name, "SingleCategory", "Home", new { id = item.CategoryId }, new { @class = "" }) ]</span>
+                            @Html.ActionLink(@item.Title, "SinglePost", "Home", new { id = item.PostId }, new { @class = "" })
+                        </h3>
+
+                        @*<a href="../Home/_SinglePostPartial" class="post" id-data="@item.PostId"> <h4 class="media-heading">@Html.DisplayFor(modelItem => item.Title)</h4></a>*@
+                        <label>@Html.DisplayFor(modelItem => item.User.Name)</label>
+                    </div>
+
+                </div>
+                <div class="media-right">
+                    <ul class="blog_time ">
+                        <li><a href="#"><i class="fa fa-eye"></i>@Html.DisplayFor(modelItem => item.View)</a></li>
+                        <li><a href="#"><i class="fa fa-comments"></i>@item.Comments.ToList().Count()</a></li>
+                        <li><a href="#"><i class="fa fa-clock-o"></i>@Html.DisplayFor(modelItem => item.Time)</a></li>
+                    </ul>
+                </div>
+            </div>
+        }
+        @ViewBag.Message
+    </div>
+</div>

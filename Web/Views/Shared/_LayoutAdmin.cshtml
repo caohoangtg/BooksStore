@@ -1,0 +1,289 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <style type="text/css">
+        .blog_time li {
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+            .blog_time li a {
+                border: 1px solid #d7d7d7;
+                line-height: 25px;
+                text-align: center;
+                padding: 0px 8px;
+                border-radius: 12.5px;
+                font-size: 10px;
+                font-family: "Heebo", sans-serif;
+                font-weight: normal;
+                display: inline-block;
+                color: #8e8e8e;
+                background-color: #fff;
+            }
+
+            .blog_time li .replys {
+                background-color: #3a3d3c;
+            }
+
+                .blog_time li .replys:hover {
+                    background-color: #bdc1c1;
+                    color: #3a3d3c;
+                }
+
+            .blog_time li a i {
+                padding-right: 6px;
+            }
+
+        .searchs {
+            border: 1px solid #8e8e8e;
+        }
+
+        h3 {
+            font-size: 18px;
+        }
+
+            h3 a {
+                color: #607d8b;
+            }
+
+        ul li a {
+            color: #607d8b;
+        }
+
+        .reply {
+            border: 1px solid #d7d7d7;
+            border-radius: 12.5px;
+            background-color: #ECF0F1;
+        }
+
+        #search {
+            width: 30px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: white;
+            background-image: url('/Content/Images/search.png');
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            padding: 12px 20px 12px 40px;
+            -webkit-transition: width 0.4s ease-in-out;
+            transition: width 0.4s ease-in-out;
+            float: right;
+        }
+
+            #search:focus {
+                width: 100%;
+            }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="fix-header">
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+        </svg>
+    </div>
+    <div id="main-wrapper">
+        <div class="header" style="background-color: #00bfff">
+            <nav class="navbar top-navbar navbar-expand-md navbar-light">
+                <div class="navbar-header" style="background-color: #00bfff">
+                    <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+                        <b><img src="~/Content/Images/bookgroup.png" class="dark-logo" style="height: 48px;" /></b>
+                        <span style="font-size:24px; color:#F8F8F8;">QUẢN LÝ</span>
+                    </a>
+                </div>
+                <div class="navbar-collapse">
+                    <ul class="navbar-nav mr-auto mt-md-0">
+                        <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted  " href="javascript:void(0)"><i class="mdi mdi-menu">xxx</i></a> </li>
+                        <li class="nav-item m-l-10"> <a class="nav-link sidebartoggler hidden-sm-down text-muted  " href="javascript:void(0)"><i class="ti-menu">xxx</i></a> </li>
+                    </ul>
+                    <div id="login">
+                        @Html.Partial("_LoginPartial")
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <div class="left-sidebar">
+            <div class="scroll-sidebar">
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <li class="nav-devider"></li>
+                        <li>
+                            <a class="" href="@Url.Action("Index", "Admin")"><i class="fa fa-tachometer"></i><span class="hide-menu">Home</span></a>
+                        </li>
+                        <li>
+                            <a class="" href="@Url.Action("Index", "Posts")" @*aria-expanded="false"*@><i class="fa fa-tachometer"></i><span class="hide-menu">Quản lý Bài viết</span></a>
+                        </li>
+                        <li>
+                            <a class="" href="@Url.Action("Index", "Categories")" @*aria-expanded="false"*@><i class="fa fa-envelope"></i><span class="hide-menu">Quản lý Chuyên đề</span></a>
+                        </li>
+                        <li>
+                            <a class="" href="@Url.Action("Index", "Topics")" @*aria-expanded="false"*@><i class="fa fa-suitcase"></i><span class="hide-menu">Quản lý Chủ đề</span></a>
+                        </li>
+                        <li>
+                            <a class="" href="@Url.Action("Index", "Manage")" @*aria-expanded="false"*@><i class="fa fa-suitcase"></i><span class="hide-menu">Quản lý tài khoản</span></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <div class="page-wrapper" style="background-color: #ECF0F1">
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                @RenderBody()
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End PAge Content -->
+            </div>
+            <!-- footer -->
+            <footer class="footer"> © 2018 All rights reserved. Template designed by <a href="https://colorlib.com">Colorlib</a></footer>
+            <!-- End footer -->
+        </div>
+        <div class="modal in" id="login-modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div id='myModalContent'></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/ckeditor/ckeditor.js"></script>
+    <script src="~/Scripts/ckfinder/ckfinder.js"></script>
+    <script src="~/Scripts/jquery.timeago.js"></script>
+    @RenderSection("scripts", required: false)
+    <script>
+        $(document).ready(function () {
+            $('span.timeago').timeago();
+            $(".anchorLogin").click(function () {
+                var $buttonClicked = $(this);
+                var id = $buttonClicked.attr('data-id');
+                var options = { "backdrop": "static", keyboard: true };
+                $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("_PartialLogin", "Account")',
+                    contentType: "application/json; charset=utf-8",
+                    data: { "Id": id },
+                    datatype: "json",
+                    success: function (data) {
+                        $('#myModalContent').html(data);
+                        $('#login-modal').modal(options);
+                        $('#login-modal').modal('show');
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+            });
+
+            $(".anchorRegister").click(function () {
+                var $buttonClicked = $(this);
+                var options = { "backdrop": "static", keyboard: true };
+                $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("_RegisterPartial", "Account")',
+                    success: function (data) {
+                        $('#myModalContent').html(data);
+                        $('#login-modal').modal(options);
+                        $('#login-modal').modal('show');
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+            });
+
+            $("#myModalContent").on('click', "#closbtn", function () {
+                $('#login-modal').modal('hide');
+            });
+            $(document).on("click", ".submit", function () {
+                var data = new FormData;
+                data.append("Email", $(".Email").val());
+                data.append("Password", $(".Password").val());
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("_PartialLogin", "Account")',
+                    data: data,
+                    contentType: false,
+                    processData: false,
+                    //datatype: "json",
+                    success: function (data) {
+                        $('#login-modal').modal('hide');
+                        $('#login').html(data);
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed");
+                    }
+                });
+                return false;
+            });
+            $(".SinglePost").on("click", ".post", function () {
+                var href = $(this).attr("href");
+                $.ajax({
+                    type: "POST",
+                    url: href,
+                    success: function (data) {
+                        $('#main').html(data);
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+                return false;
+            });
+            $(document).on("click", "#newTopic", function () {
+                var href = $(this).attr("href");
+                $.ajax({
+                    type: "GET",
+                    url: href,
+                    success: function (data) {
+                        $('#main').html(data);
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+                return false;
+            });
+            $("#search").on("keydown", function (event) {
+                if (event.which == 13) {
+                    var title =  $(this).val();
+                    $.ajax({
+                        type: "GET",
+                        url: '@Url.Action("Search", "Home")',
+                        contentType: "application/json; charset=utf-8",
+                        data: { "title": title },
+                        datatype: "json",
+                        success: function (data) {
+                            $("#main").html(data);
+                        },
+                        error: function () {
+                            alert("Dynamic content load failed.");
+                        }
+                    });
+                }
+            });
+            
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Models.Categories>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2><strong>QUẢN LÝ CHUYÊN MỤC</strong></h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create",null, new { @class = "btn btn-success" })
+</p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CategoryId }, new { @class="btn btn-info"})
+            @Html.ActionLink("Delete", "Delete", new { id=item.CategoryId }, new { @class = "btn btn-danger" } )
+        </td>
+    </tr>
+}
+
+</table>

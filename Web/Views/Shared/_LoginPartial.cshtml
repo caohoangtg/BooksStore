@@ -1,0 +1,104 @@
+﻿@*@using Microsoft.AspNet.Identity*@
+@if (Session["UserId"] != null)
+{
+    using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+<ul class="navbar-nav my-lg-0">
+
+    <li class="nav-item">
+        <div style="margin-top: 12px" class="recent-comment">
+            <ul class="blog_time">
+                <li>
+                    @Html.ActionLink("New Topic", "NewPost", "Home", new { id = "" }, new { @class = "nav-link dropdown-toggle text-muted text-muted" })
+                </li>
+            </ul>
+
+        </div>
+    </li>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle text-muted text-muted Notifications " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-bell" style=" color:#F8F8F8;"></i>
+            <div class="notify" style="display: none"> <span class="heartbit"></span> <span class="point"></span> </div>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right mailbox animated zoomIn" id="menuNotify">
+
+        </div>
+    </li>
+    <li class="nav-item">
+        <div style="margin-top: 15px" class="recent-comment">
+            <span style="color: azure;">@ViewBag.Name</span>
+
+        </div>
+    </li>
+    <li class="nav-item dropdown">
+
+        <a class="nav-link dropdown-toggle text-muted " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle" style="font-size:24px; color:#F8F8F8;"></i>@*<img src="images/users/5.jpg" alt="user" class="profile-pic" />*@</a>
+        <div class="dropdown-menu dropdown-menu-right animated zoomIn">
+            <ul class="dropdown-user">
+                <li><a href=@Url.Action("Index","Users")><i class="fa fa-user"></i> Profile</a></li>
+                <li><a href="#"><i class="ti-settings"></i> Setting</a></li>
+                <li><a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-power-off"></i> Logout</a></li>
+            </ul>
+        </div>
+    </li>
+</ul>
+    }
+
+}
+else if (Session["AdminId"] != null)
+{
+    using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+<ul class="navbar-nav my-lg-0">
+
+    <li class="nav-item">
+        <div style="margin-top: 12px" class="recent-comment">
+            <ul class="blog_time">
+                <li>
+                    @Html.ActionLink("New Topic", "NewPost", "Home", new { id = "" }, new { @class = "nav-link dropdown-toggle text-muted" })
+                </li>
+            </ul>
+
+        </div>
+    </li>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle text-muted text-muted Notifications " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-bell" style="color:#F8F8F8;"></i>
+            <div class="notify" style="display: none"> <span class="heartbit"></span> <span class="point"></span> </div>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right mailbox animated zoomIn" id="menuNotify">
+
+        </div>
+    </li>
+    <li class="nav-item">
+        <div style="margin-top: 15px" class="recent-comment">
+            <span style="color: azure;">@ViewBag.Name</span>
+
+        </div>
+    </li>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle" style="font-size:24px; color:#F8F8F8;"></i>@*<img src="images/users/5.jpg" alt="user" class="profile-pic" />*@</a>
+        <div class="dropdown-menu dropdown-menu-right animated zoomIn">
+            <ul class="dropdown-user">
+                <li><a href=@Url.Action("Index","Users")><i class="fa fa-user"></i> Profile</a></li>
+                <li><a href=@Url.Action("Index","Admin")><i class="fa fa-id-card-o"></i> Manage</a></li>
+                <li><a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-power-off"></i> Logout</a></li>
+            </ul>
+        </div>
+    </li>
+</ul>
+    }
+}
+else
+{
+        <ul class="navbar-nav my-lg-0 blog_time">
+            <li><a href="javascript:void(0);" class="anchorRegister" @*data-id="@item.Id"*@>Register</a></li>
+            <li><a href="javascript:void(0);" class="anchorLogin" data-toggle="modal" data-target="#login-modal">Login</a></li>
+        </ul>
+     
+}
+

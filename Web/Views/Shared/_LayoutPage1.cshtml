@@ -1,0 +1,639 @@
+﻿@*@model Models.Posts*@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <style type="text/css">
+        .parallax {
+            background-image: url('/Content/Images/BackgroundBook.jpg');
+            min-height: 40vh;
+            /*background-attachment: fixed;
+            background-position: center;*/
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+        }
+
+
+        .blog_time li {
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+            .blog_time li a {
+                border: 1px solid #d7d7d7;
+                line-height: 25px;
+                text-align: center;
+                padding: 0px 8px;
+                border-radius: 12.5px;
+                font-size: 10px;
+                font-family: "Heebo", sans-serif;
+                font-weight: normal;
+                display: inline-block;
+                color: #8e8e8e;
+                background-color: #fff;
+            }
+
+            .blog_time li .replys {
+                background-color: #3a3d3c;
+            }
+
+                .blog_time li .replys:hover {
+                    background-color: #bdc1c1;
+                    color: #3a3d3c;
+                }
+
+            .blog_time li a i {
+                padding-right: 6px;
+            }
+
+        .searchs {
+            border: 1px solid #8e8e8e;
+        }
+
+        h3 {
+            font-size: 18px;
+        }
+
+            h3 a {
+                color: #607d8b;
+            }
+
+        ul li a {
+            color: #607d8b;
+        }
+
+        .reply {
+            border: 1px solid #d7d7d7;
+            border-radius: 12.5px;
+            background-color: #ECF0F1;
+        }
+
+        #search {
+            width: 30px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: white;
+            background-image: url('/Content/Images/search.png');
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            padding: 12px 20px 12px 40px;
+            -webkit-transition: width 0.4s ease-in-out;
+            transition: width 0.4s ease-in-out;
+            float: right;
+        }
+
+            #search:focus {
+                width: 100%;
+            }
+
+
+        .noti-content {
+            position: fixed;
+            right: 100px;
+            background: #e5e5e5;
+            border-radius: 4px;
+            top: 47px;
+            width: 250px;
+            display: none;
+            border: 1px solid #9E988B;
+        }
+
+        ul#notiContent {
+            max-height: 200px;
+            overflow: auto;
+            padding: 0px;
+            margin: 0px;
+            padding-left: 20px;
+        }
+
+            ul#notiContent li {
+                margin: 3px;
+                padding: 6px;
+                background: #fff;
+            }
+
+        .noti-top-arrow {
+            border-color: transparent;
+            border-bottom-color: #F5DEB3;
+            border-style: dashed dashed solid;
+            border-width: 0 8.5px 8.5px;
+            position: absolute;
+            right: 32px;
+            top: -8px;
+        }
+
+        span.noti {
+            color: #FF2323;
+            margin: 15px;
+            position: fixed;
+            right: 100px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        span.count {
+            position: relative;
+            top: -3px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body class="fix-header">
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
+        </svg>
+    </div>
+    <!-- Main wrapper  -->
+    <div id="main-wrapper">
+        <!-- header header  -->
+        <div class="header" style="background-color: #00bfff">
+            <nav class="navbar top-navbar navbar-expand-md navbar-light">
+                <!-- Logo -->
+                <div class="navbar-header" style="background-color: #00bfff">
+                    <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+                        <!-- Logo icon -->
+                        <b><img src="~/Content/Images/bookgroup.png" class="dark-logo" style="height: 48px;" /></b>
+                        <!--End Logo icon -->
+                        <!-- text -->
+                        <span style="font-size:24px; color:#F8F8F8;">DIỄN ĐÀN TRAO ĐỔI</span>
+                    </a>
+                </div>
+                <!-- End Logo -->
+                <div class="navbar-collapse">
+                    <ul class="navbar-nav mr-auto mt-md-0">
+                        <li class="nav-item">
+
+                        </li>
+                    </ul>
+                    
+                    <div id="login">
+                        @Html.Partial("_LoginPartial")
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="pagewrapper" style="background-color: #ECF0F1">
+            <div class="parallax">
+            </div>
+            <div class="container-fluid">
+                <div class="row page-titles">
+                    <div class="col-md-5 align-self-center">
+                        <h3 class="text-primary">@Html.MvcSiteMap().SiteMapPath()</h3>
+                    </div>
+                    
+                    <div class="col-md-7 align-self-center">
+                        <input type="text" class="form-control" name="Title" id="search">
+                    </div>
+                </div>
+                <div class="row">
+                    <span class="noti fa fa-bell"><span class="count">&nbsp;</span></span>
+                    <div class="noti-content">
+                        <div class="noti-top-arrow"></div>
+                        <ul id="notiContent"></ul>
+                    </div>
+                </div>
+                <br />
+                <hr />
+                <div class="row">
+                    <div class="col-lg-9">
+
+                        <div id="main" class="SinglePost">
+                            @RenderBody()
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="card-title">
+                                <h3>Categories </h3>
+                                <hr>
+                            </div>
+                            <ul>
+                                @Html.Action("ListCategories", "Home")
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">
+                                <h3>Topics </h3>
+                                <hr>
+                            </div>
+                            <ul>
+                                @Html.Action("ListTopics", "Home")
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">
+                                <h4>Messages</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="recent-meaasge">
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <a href="#"><img alt="..." src="images/avatar/1.jpg" class="media-object"></a>
+                                        </div>
+                                        <div class="media-body">
+                                            <h4 class="media-heading">john doe</h4>
+                                            <div class="meaasge-date">15 minutes Ago</div>
+                                            <p class="f-s-12">We are happy about your service </p>
+                                        </div>
+                                    </div>
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <a href="#"><img alt="..." src="images/avatar/2.jpg" class="media-object"></a>
+                                        </div>
+                                        <div class="media-body">
+                                            <h4 class="media-heading">Mr. John</h4>
+                                            <div class="meaasge-date">40 minutes ago</div>
+                                            <p class="f-s-12">Quick service and good serve </p>
+                                        </div>
+                                    </div>
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <a href="#"><img alt="..." src="images/avatar/3.jpg" class="media-object"></a>
+                                        </div>
+                                        <div class="media-body">
+                                            <h4 class="media-heading">Mr. Michael</h4>
+                                            <div class="meaasge-date">1 minutes ago</div>
+                                            <p class="f-s-12">We like your birthday cake </p>
+                                        </div>
+                                    </div>
+                                    <div class="media no-border">
+                                        <div class="media-left">
+                                            <a href="#"><img alt="..." src="images/avatar/2.jpg" class="media-object"></a>
+                                        </div>
+                                        <div class="media-body">
+                                            <h4 class="media-heading">Mr. John</h4>
+                                            <div class="meaasge-date">40 minutes ago</div>
+                                            <p class="f-s-12">Quick service and good serve </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Container fluid  -->
+            <!-- footer -->
+            <footer class="footer"> © 2018 All rights reserved. Template designed by <a href="https://colorlib.com">Colorlib</a></footer>
+            <!-- End footer -->
+        </div>
+        <div class="modal in" id="login-modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div id='myModalContent'></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/ckeditor/ckeditor.js"></script>
+    <script src="~/Scripts/ckfinder/ckfinder.js"></script>
+    <script src="~/Scripts/jquery.timeago.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.2.3.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    @RenderSection("scripts", required: false)
+    <script>
+        $(document).ready(function () {
+            $('span.timeago').timeago();
+            CheckLike();
+            $(".anchorLogin").click(function () {
+                var $buttonClicked = $(this);
+                var id = $buttonClicked.attr('data-id');
+                var options = { "backdrop": "static", keyboard: true };
+                $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("_PartialLogin", "Account")',
+                    contentType: "application/json; charset=utf-8",
+                    data: { "Id": id },
+                    datatype: "json",
+                    success: function (data) {
+                        $('#myModalContent').html(data);
+                        $('#login-modal').modal(options);
+                        $('#login-modal').modal('show');
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+            });
+
+            $(".anchorRegister").click(function () {
+                var $buttonClicked = $(this);
+                var options = { "backdrop": "static", keyboard: true };
+                $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("_RegisterPartial", "Account")',
+                    success: function (data) {
+                        $('#myModalContent').html(data);
+                        $('#login-modal').modal(options);
+                        $('#login-modal').modal('show');
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+            });
+
+            $("#myModalContent").on('click', "#closbtn", function () {
+                $('#login-modal').modal('hide');
+            });
+            //$("#closbtn").click(function () {
+            //    console.log("da kcih");
+            //    $('#myModal').modal('hide');
+            //});
+            $(document).on("click", ".submit", function () {
+                var data = new FormData;
+                data.append("Email", $(".Email").val());
+                data.append("Password", $(".Password").val());
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("_PartialLogin", "Account")',
+                    //contentType: "application/json; charset=utf-8",
+                    data: data,
+                    contentType: false,
+                    processData: false,
+                    //datatype: "json",
+                    success: function (data) {
+                        //debugger;
+                        $('#login-modal').modal('hide');
+                        $('#login').html(data);
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed............");
+                    }
+                });
+                return false;
+            });
+            $(".SinglePost").on("click", ".post", function () {
+                var href = $(this).attr("href");
+                $.ajax({
+                    type: "POST",
+                    url: href,
+                    success: function (data) {
+                        $('#main').html(data);
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+                return false;
+            });
+            $(document).on("click", "#newTopic", function () {
+                var href = $(this).attr("href");
+                $.ajax({
+                    type: "GET",
+                    url: href,
+                    success: function (data) {
+                        $('#main').html(data);
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+                return false;
+            });
+            $("#search").on("keydown", function (event) {
+                if (event.which == 13) {
+                    var title =  $(this).val();
+                    $.ajax({
+                        type: "GET",
+                        url: '@Url.Action("Search", "Home")',
+                        contentType: "application/json; charset=utf-8",
+                        data: { "title": title },
+                        datatype: "json",
+                        success: function (data) {
+                            $("#main").html(data);
+                        },
+                        error: function () {
+                            alert("Dynamic content load failed.");
+                        }
+                    });
+                }
+            });
+
+            $('#tabs ul li .tab').click(function () {
+                var href = $(this).attr("href");
+                $.ajax({
+                    type: "GET",
+                    url: href,
+                    success: function (data) {
+                        $(".showTab").html(data);
+                    },
+                    error: function () {
+                        alert("Something went wrong is controller.........");
+                    }
+                });
+                $("#tabs ul li .tab").removeClass("active");
+                $(this).addClass("active");
+                return false;
+            });
+
+            $(".showTab").on("click", "#DelPost", function () {
+                var id = $(this).data("id");
+                var ps = $(this).parents(".postsingle");
+                var r = confirm("Bạn có muốn xóa không!");
+                if (r == true) {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("DeletePost", "Home")',
+                        data: { "id": id },
+                        datatype: "json",
+                        success: function (data) {
+                            ps.remove();
+                        },
+                        error: function () {
+                            alert("Something went wrong is controller..........");
+                        }
+                    });
+                }
+                return false;
+            });
+
+            $(".SinglePost").on("click", ".replys", function () {
+                $(this).parents(".media-body").children(":last-child").css("display", "block");
+                return false;
+            });
+
+            $(".SinglePost").on("click", ".sub-reply", function () {
+                var href = $(this).attr("href");
+                var reply = $(this).parents(".media-body").find(".comment-reply");
+                var data = new FormData;
+                data.append("CommentId", $(this).parents(".recent-comment").find("#item_CommentId").val());
+                data.append("RepComment", $(this).parents(".reply_form").find("#RepComment").val());
+                $(this).parents(".reply_form").find("#RepComment").val("");
+                $.ajax({
+                    type: "POST",
+                    url: href,
+                    data: data,
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                        if (reply.find(".reply").attr("class") == null) {
+                            reply.append(data);
+                        }
+                        else {
+                            reply.find(".reply:last-child").after(data);
+                        }
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+                return false;
+            });
+
+            $(".comment_form").on("click", ".sub-comment", function () {
+                var href = $(this).attr("href");
+                var data = new FormData;
+                data.append("PostId", $("#PostId").val());
+                data.append("Comment", $("#Comment").val());
+                $.ajax({
+                    type: "POST",
+                    url: href,
+                    data: data,
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                        $('#comments').before(data);
+                        $("#Comment").val("");
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+                return false;
+            });
+            $(document).on("click", "#Like", function () {
+                var data = new FormData;
+                var check = $("i", this);
+                data.append("PostId", $("#PostId").val());
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Marks", "Home")',
+                    data: data,
+                    contentType: false,
+                    processData: false,
+                    success: function () {
+                        if (check.hasClass("text-danger")) {
+                            check.removeClass("text-danger");
+                            var n = $("#changemark").text();
+                            $("#changemark").text(parseInt(n) - 1);
+                            //alert("Đã xóa khỏi danh sách đánh dấu");
+                        }
+                        else {
+                            //alert("Đã thêm vào danh sách đánh dấu");
+                            var n = $("#changemark").text();
+                            $("#changemark").text(parseInt(n) + 1);
+                            check.addClass("text-danger");
+                        }
+
+                    },
+                    error: function () {
+                        alert("Dynamic content load failed.");
+                    }
+                });
+                return false;
+            });
+
+        });
+        function CheckLike() {
+            if ($(".mark:first").is("#Like")) {
+                var id = $("#PostId").val();
+                $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("CheckMarks", "Home")',
+                    contentType: "application/json; charset=utf-8",
+                    data: { "id": id },
+                    datatype: "json",
+                    success: function (data) {
+                        if (data == "1") {
+                           $("#Like i").addClass("text-danger");
+                        }
+                    },
+                    error: function () {
+                        //alert("Dynamic content load failed.");
+                    }
+                });
+            }
+
+        }
+
+        $(function () {
+            // Click on notification icon for show notification
+            //$('span.noti').click(function (e) {
+            //    e.stopPropagation();
+            //    $('.noti-content').show();
+            //    var count = 0;
+            //    count = parseInt($('span.count').html()) || 0;
+            //    //only load notification if not already loaded
+            //    if (count > 0) {
+            //        updateNotification();
+            //    }
+            //    $('span.count', this).html('&nbsp;');
+            //})
+            //// hide notifications
+            //$('html').click(function () {
+            //    $('.noti-content').hide();
+            //})
+            //// update notification 
+            //function updateNotification() {
+            //    $('#notiContent').empty();
+            //    $('#notiContent').append($('<li>Loading...</li>'));
+
+            //    $.ajax({
+            //        type: 'GET',
+            //        url: '/home/GetNotificationContacts',
+            //        success: function (response) {
+            //            $('#notiContent').empty();
+            //            if (response.length == 0) {
+            //                $('#notiContent').append($('<li>No data available</li>'));
+            //            }
+            //            $.each(response, function (index, value) {
+            //                $('#notiContent').append($('<li>New contact : ' + value.Title + ' (' + value.Description + ') added</li>'));
+            //            });
+            //        },
+            //        error: function (error) {
+            //            console.log(error);
+            //        }
+            //    })
+            //}
+            // update notification count
+            function updateNotificationCount() {
+                //var count = 0;
+                //count = parseInt($('span.count').html()) || 0;
+                //count++;
+                //$('span.count').html(count);
+                $('span.count').html("<b>Yes</b>");
+            }
+            // signalr js code for start hub and send receive notification
+            var notificationHub = $.connection.notificationHub;
+            $.connection.hub.start().done(function () {
+                console.log('Notification hub started');
+            });
+
+            //signalr method for push server message to client
+            notificationHub.client.notify = function (message) {
+                if (message && message.toLowerCase() == "added") {
+                    $('span.count').html("<b>Yes</b>");
+                    updateNotificationCount();
+                }
+            }
+
+        })
+
+    </script>
+</body>
+</html>

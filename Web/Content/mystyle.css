@@ -1,0 +1,148 @@
+﻿.parallax {
+    background-image: url('/Content/Images/BackgroundBook.jpg');
+    min-height: 40vh;
+    /*background-attachment: fixed;
+            background-position: center;*/
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+
+.blog_time li {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+    .blog_time li a {
+        border: 1px solid #8e8e8e;
+        line-height: 25px;
+        text-align: center;
+        padding: 0px 8px;
+        border-radius: 12.5px;
+        font-size: 10px;
+        font-family: "Heebo", sans-serif;
+        font-weight: normal;
+        display: inline-block;
+        color: #8e8e8e;
+        background-color: #fff;
+    }
+
+    .blog_time li .replys {
+        background-color: #3a3d3c;
+    }
+
+        .blog_time li .replys:hover {
+            background-color: #bdc1c1;
+            color: #3a3d3c;
+        }
+
+    .blog_time li a i {
+        padding-right: 6px;
+    }
+
+.media a:hover {
+    color: #0471A5;
+}
+
+.searchs {
+    border: 1px solid #8e8e8e;
+}
+
+h3 {
+    font-size: 18px;
+}
+
+    h3 a {
+        color: #607d8b;
+    }
+
+ul li a {
+    color: #607d8b;
+}
+
+.reply {
+    border: 1px solid #d7d7d7;
+    border-radius: 12.5px;
+    background-color: #334D5D;
+    /*ECF0F1*/
+}
+
+#search {
+    width: 30px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    background-image: url('/Content/Images/search.png');
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+    float: right;
+}
+
+    #search:focus {
+        width: 100%;
+    }
+
+.card {
+    background-color: #DEDEDE;
+    /*#F3F1F0*/
+}
+
+.myRaw p {
+    color: #000;
+}
+
+footer {
+    background-color: rgba(44, 62, 80, 1.0);
+    width: 100%;
+    bottom: 0;
+    font-weight: lighter;
+    color: white;
+}
+
+.footerHeader {
+    width: 100%;
+    padding: 1em;
+    background-color: rgba(52, 73, 94,1.0);
+    text-align: center;
+    color: white;
+}
+
+footer h3 {
+    font-weight: lighter;
+}
+
+footer ul {
+    padding-left: 5px;
+    list-style: none;
+}
+
+footer p {
+    text-align: justify;
+    font-size: 12px;
+}
+
+footer iframe {
+    width: 100%;
+    position: relative;
+    height: 170px;
+}
+
+.sm {
+    list-style: none;
+    overflow: auto;
+}
+
+    .sm li {
+        display: inline;
+        padding: 5px;
+        float: left;
+    }
+
+        .sm li a img {
+            width: 32px;
+        }

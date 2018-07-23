@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Web.ViewModels.PostViewModel>
+
+<ul>
+    <li>
+        <div class="drop-title">Notifications</div>
+    </li>
+    <li>
+        <div class="message-center">
+            @foreach (var item in Model)
+            {
+                <a href="@Url.Action("SinglePost", "Home", new { id= item.PostId})">
+                    <div class="m-r-10 pull-left" style="margin-top: 10px;">
+                        <img alt="..." src="~/Content/Images/avatar/@item.User.Profile.ImageData" style="border-radius: 100%; max-height: 40px; max-width: 40px">
+                        @*<img src="~/Content/Images/avatar/default.png" />*@
+                    </div>
+                    <div class="mail-contnet">
+                        <h5>@item.Title</h5> <span class="mail-desc">@item.User.Name</span> <span class="time">@item.Time</span>
+                    </div>
+                </a>
+            }
+        </div>
+    </li>
+    <li>
+        <a class="nav-link text-center" href="javascript:void(0);"> <strong>Check all notifications</strong> <i class="fa fa-angle-right"></i> </a>
+    </li>
+</ul>
